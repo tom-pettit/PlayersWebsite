@@ -9,6 +9,10 @@ import { compose } from 'redux'
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import axios from 'axios'
 import GameInfo from './GameInfo'
+import Particles from 'react-particles-js';
+import './SearchResult.css'
+import Navbar from '../navbars/Navbar'
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -93,8 +97,38 @@ const SearchResult = (props) => {
     if (game) {
         console.log('GAAME', game)
         return(
-            <div>
-                <div className={classes.box}>
+            <div style={{height: '100%', margin: 0}}>
+                <Navbar style={{opacity: '0'}}/>
+                <Particles
+                    id='particles'
+                    style={{opacity: '0.85', height: '100%', margin: 0}}
+                    params={{
+                        "particles": {
+                            "number": {
+                                "value": 60
+                            },
+                            "size": {
+                                "value": 3
+                            },
+                            "color": {
+                            value: "#000000"
+                            },
+                            line_linked: {
+                            color: {
+                                value: '#000000'
+                            }
+                            }
+                        },
+                        "interactivity": {
+                            "events": {
+                                "onhover": {
+                                    "enable": true,
+                                    "mode": "repulse"
+                                }
+                            }
+                        }
+                }} />
+                <div className={classes.box} style={{opacity:'0.85'}}>
                     <Card className={classes.root} style={{textAlign: 'center'}}>
                         <div style={{display: 'inline-block'}}>
                             <CardContent>

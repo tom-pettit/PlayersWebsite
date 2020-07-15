@@ -3,6 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import axios from 'axios'
 import {Link} from 'react-router-dom'
 import SearchIcon from '@material-ui/icons/Search';
+import { withRouter } from 'react-router'
 
 
 class SearchBarHome extends React.Component {
@@ -18,9 +19,13 @@ class SearchBarHome extends React.Component {
         })
     }
 
+    handleSubmit = () => {
+        this.props.history.push('/search/'+this.state.game)
+    }
+
     render() {
         return (
-            <form onSubmit = {this.handleSubmit}>
+            <form onSubmit={this.handleSubmit}>
                 <div style={{display: 'inline-block'}}>
                     <Link to={'/search/'+this.state.game} color='black' style={{color: 'rgb(33,33,33)'}}>
                         <SearchIcon style={{verticalAlign: 'middle'}}/>
@@ -42,4 +47,4 @@ class SearchBarHome extends React.Component {
     }
 }
 
-export default SearchBarHome
+export default withRouter(SearchBarHome)

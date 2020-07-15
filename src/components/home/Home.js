@@ -12,6 +12,8 @@ import AddIcon from '@material-ui/icons/Add';
 import { connect } from 'react-redux'
 import TextField from '@material-ui/core/TextField';
 import SearchBarHome from './SearchBarHome'
+import Particles from 'react-particles-js';
+import './Home.css'
 
 
 
@@ -19,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     border: 'none',
     boxShadow: 'none',
-    marginRight: 0
+    marginRight: 0,
   },
 
   content: {
@@ -97,8 +99,37 @@ const Home = () => {
   }
 
   return (
-    <div>
-      <div className={classes.box}>
+    <div style={{height: '100%', margin: 0}}>
+      <Particles
+          id='particles'
+          style={{height: 100, margin: 0}}
+          params={{
+            "particles": {
+                "number": {
+                    "value": 50
+                },
+                "size": {
+                    "value": 3
+                },
+                "color": {
+                  value: "#000000"
+                },
+                line_linked: {
+                  color: {
+                    value: '#000000'
+                  }
+                }
+            },
+            "interactivity": {
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "repulse"
+                    }
+                }
+            }
+      }} />
+      <div className={classes.box} style={{height: '100%', opacity: '0.85'}}>
           <Card className={classes.root} style={{textAlign: 'center'}}>
               <div style={{display: 'inline-block'}}>
                   <CardContent>
@@ -106,7 +137,7 @@ const Home = () => {
                       Concurrent Players
                   </Typography>
                   <Typography className={classes.carddescription} style={{fontFamily: 'Hind'}}>
-                      Find the number of concurrent players currently of any steam game
+                      Find the number of concurrent players of any steam game
                   </Typography>
                   <SearchBarHome />
                   </CardContent>

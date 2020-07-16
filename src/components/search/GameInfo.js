@@ -17,14 +17,14 @@ class GameInfo extends React.Component {
     }
 
     componentDidMount() {
-        console.log('PROPS GAME', this.props.game)
+        console.log('GAME SEARCH', this.props.game)
         axios.get('https://cors-anywhere.herokuapp.com/https://api.steampowered.com/ISteamApps/GetAppList/v2/', {
             params: {
                 key: '32DDDD839D24851A45BE2AA32B486FBA'
             }
         })
         .then( res => {
-        console.log('AXIOS', res.data.applist.apps)
+        console.log('STEAM API APP LIST', res.data.applist.apps)
         var applist = res.data.applist.apps
 
         const options = {
@@ -32,15 +32,20 @@ class GameInfo extends React.Component {
             keys: ['name']
         }
 
-        const fuse = new Fuse(applist, options)
+        try {
 
-        const result = fuse.search(this.props.game)
+            const fuse = new Fuse(applist, options)
+
+            const result = fuse.search(this.props.game)
 
 
-        this.setState({
-            appid: result[0].item.appid,
-            official_name: result[0].item.name
-        })
+            this.setState({
+                appid: result[0].item.appid,
+                official_name: result[0].item.name
+            })
+        } catch {
+            
+        }
 
 
         if (this.state.appid === null) {
@@ -84,7 +89,7 @@ class GameInfo extends React.Component {
         var concurrent = this.state.concurrent_players
         console.log('CONCURRENT', concurrent)
 
-        const errormsg = this.state.finding_error ? (<p><span style={{color: 'red'}}>Error</span> finding the details for this game.</p>) : null
+        const errormsg = this.state.finding_error ? (<p><span style={{color: 'red'}}>Error</span> finding the details for this game. This is normally due to lag or temporary failure of the APIs this site requires. This issue normally resolves itself soon</p>) : null
         
         const dataObject = this.state.appid ? (
             <div>
@@ -104,14 +109,14 @@ class GameInfo extends React.Component {
             </div>
         )
 
-        const allinfo = this.state.finding_error ? errormsg : (
+        const allinfo = this.state.appid ? (
             <div className='container'>
                 <div>{dataObject}</div>
                     {this.state.show_more_info ?  <Button variant="outlined" style={{fontFamily: 'Hind'}} onClick={this.LessInfoClick}>Less Info</Button> : <Button variant="outlined" style={{fontFamily: 'Hind'}} onClick={this.MoreInfoClick}>More Info</Button>}
                     {this.state.show_more_info ? <MoreInfo more_info={this.state.more_info} official_name={this.state.official_name}/> : null}
 
             </div>
-        )
+        ) : errormsg
 
         return(
             <div>

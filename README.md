@@ -1,8 +1,12 @@
 # concurrentplayers.com
 
+> The Landing Page
+
 [![HOME](https://snipboard.io/wqyxKc.jpg)]()
 
 ---
+
+> The Search Result Page
 
 [![SEARCH RESULT](https://snipboard.io/c0yp63.jpg)]()
 

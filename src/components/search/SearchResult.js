@@ -93,9 +93,7 @@ const SearchResult = (props) => {
     var game = props.match.params.name
     
 
-    console.log('ELSE', game)
     if (game) {
-        console.log('GAAME', game)
         return(
             <div style={{height: '100%', margin: 0}}>
                 <Navbar style={{opacity: '0'}}/>
@@ -134,9 +132,6 @@ const SearchResult = (props) => {
                             <CardContent>
                             <Typography component="h5" variant="h5" className={classes.cardtitle} style={{fontFamily: 'Hind'}}>
                                 {game}
-                            </Typography>
-                            <Typography className={classes.carddescription} style={{fontFamily: 'Hind'}}>
-                                Here are the details for: {game}
                             </Typography>
                             </CardContent>
                         </div>

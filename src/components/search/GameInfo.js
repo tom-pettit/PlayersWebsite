@@ -27,6 +27,16 @@ class GameInfo extends React.Component {
         console.log('STEAM API APP LIST', res.data.applist.apps)
         var applist = res.data.applist.apps
 
+        applist.push({
+            appid: 730,
+            name: 'CS GO'
+        },
+        {
+            appid: 730,
+            name: 'CS: GO'
+        })
+
+
         const options = {
             includeScore: true,
             keys: ['name']

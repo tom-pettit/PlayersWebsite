@@ -99,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
 const Home = (props) => {
   const classes = useStyles();
   const more_info = props.more_info
-  console.log('GAAME DATA', more_info)
+  const official_name = props.official_name
   var new_price = ''
   if (more_info.price !== '0') {
     new_price = more_info.price.slice(0,-2) + '.' + more_info.price.slice(-2)
@@ -110,6 +110,9 @@ const Home = (props) => {
   return (
     <div className={classes.root}>
       <Grid container spacing={3} style={{boxShadow: 'none', fontFamily: 'Hind'}}>
+        <Grid item xs={12}>
+          <Paper className={classes.paper} style={{boxShadow: 'none', fontFamily: 'Hind'}}><span style={{fontWeight: 'bold'}}>Official Name:</span> {official_name}</Paper>
+        </Grid>
         <Grid item xs={6}>
           <Paper className={classes.paper} style={{boxShadow: 'none', fontFamily: 'Hind'}}><span style={{fontWeight: 'bold'}}>Price:</span> ${new_price}</Paper>
         </Grid>

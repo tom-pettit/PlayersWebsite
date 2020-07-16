@@ -3,11 +3,13 @@ import axios from 'axios'
 import CountUp from 'react-countup'
 import Button from '@material-ui/core/Button';
 import MoreInfo from './MoreInfo'
+import Fuse from 'fuse.js'
 
 
 class GameInfo extends React.Component {
     state = {
         appid: null,
+        official_name: null,
         concurrent_players: null,
         show_more_info: false,
         more_info: null,
@@ -23,17 +25,23 @@ class GameInfo extends React.Component {
         })
         .then( res => {
         console.log('AXIOS', res.data.applist.apps)
-        var i = null
         var applist = res.data.applist.apps
-        for (i = 0; i < applist.length; i++) {
-            if (applist[i].name === this.props.game) {
-                console.log('FOUND', applist[i].appid)
-                this.setState({
-                    appid: applist[i].appid
-                })
-                break
-            }
+
+        const options = {
+            includeScore: true,
+            keys: ['name']
         }
+
+        const fuse = new Fuse(applist, options)
+
+        const result = fuse.search(this.props.game)
+
+
+        this.setState({
+            appid: result[0].item.appid,
+            official_name: result[0].item.name
+        })
+
 
         if (this.state.appid === null) {
             this.setState({
@@ -76,7 +84,7 @@ class GameInfo extends React.Component {
         var concurrent = this.state.concurrent_players
         console.log('CONCURRENT', concurrent)
 
-        const errormsg = this.state.finding_error ? (<p><span style={{color: 'red'}}>Error</span> finding the details for this game. Please ensure that you have typed in the game's name exactly as it is spelt, with the correct capitalisation, spelling and grammar (if necessary)</p>) : null
+        const errormsg = this.state.finding_error ? (<p><span style={{color: 'red'}}>Error</span> finding the details for this game.</p>) : null
         
         const dataObject = this.state.appid ? (
             <div>
@@ -92,22 +100,22 @@ class GameInfo extends React.Component {
             </div>
         ) : (
             <div>
-                {errormsg}
+                Loading data...
             </div>
         )
 
-        const error = this.state.finding_error ? errormsg : (
+        const allinfo = this.state.finding_error ? errormsg : (
             <div className='container'>
                 <div>{dataObject}</div>
                     {this.state.show_more_info ?  <Button variant="outlined" style={{fontFamily: 'Hind'}} onClick={this.LessInfoClick}>Less Info</Button> : <Button variant="outlined" style={{fontFamily: 'Hind'}} onClick={this.MoreInfoClick}>More Info</Button>}
-                    {this.state.show_more_info ? <MoreInfo more_info={this.state.more_info}/> : null}
+                    {this.state.show_more_info ? <MoreInfo more_info={this.state.more_info} official_name={this.state.official_name}/> : null}
 
             </div>
         )
 
         return(
             <div>
-                {error}
+                {allinfo}
             </div>
         )
     }

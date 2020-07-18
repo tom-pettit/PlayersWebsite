@@ -9,6 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import CreateIcon from '@material-ui/icons/Create';
 import ShareIcon from '@material-ui/icons/Share';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import HomeIcon from '@material-ui/icons/Home';
 import { withRouter } from 'react-router'
 
 
@@ -18,7 +19,7 @@ class Navbar extends React.Component {
     }
 
     goBack= () => {
-        this.props.history.goBack()
+        this.props.history.push('/')
     }
 
     render() {
@@ -27,7 +28,7 @@ class Navbar extends React.Component {
               <AppBar color='white' position="static" style={{boxShadow: 'none'}}>
                 <Toolbar>
                   <Button onClick={this.goBack} color='inherit'>
-                    <ArrowBackIosIcon fontSize='small'/>
+                    <HomeIcon fontSize='small'/>
                   </Button>
                 </Toolbar>
               </AppBar>

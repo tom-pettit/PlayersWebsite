@@ -64,10 +64,6 @@ class GameInfo extends React.Component {
 
             const result = fuse.search(this.props.game)
 
-
-            const errormsg = this.state.finding_error ? (<p><span style={{color: 'red'}}>Error</span> finding the details for this game. This is normally due to lag or temporary failure of the APIs this site requires. This issue normally resolves itself soon</p>) : null
-
-
             
             if (result[0].score > 0.01) {
                 this.setState({

@@ -4,6 +4,7 @@ import CountUp from 'react-countup'
 import Button from '@material-ui/core/Button';
 import MoreInfo from './MoreInfo'
 import Fuse from 'fuse.js'
+import GameData from '../../data/allgamedata.json'
 
 
 class GameInfo extends React.Component {
@@ -40,6 +41,21 @@ class GameInfo extends React.Component {
         const options = {
             includeScore: true,
             keys: ['name']
+        }
+
+        if (applist.length !== 2) {
+            // API CALL FINE
+        } else {
+            console.log('LOCAL FILE SAVE USED', GameData)
+            applist = GameData.applist.apps
+            applist.push({
+                appid: 730,
+                name: 'CS GO'
+            },
+            {
+                appid: 730,
+                name: 'CS: GO'
+            })
         }
 
         try {

@@ -139,7 +139,7 @@ class GameInfo extends React.Component {
             </div>
         ) : (
             <div>
-                Loading data...
+                <h1>LOADING</h1>
             </div>
         )
 
